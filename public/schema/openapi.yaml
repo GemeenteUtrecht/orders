@@ -1,0 +1,1164 @@
+openapi: 3.0.2
+info:
+  description: |
+    Welkom inovator!, 
+    Fijn dat je de tijd en moeite hebt genomen om je te verdiepen in dit component 
+    
+    # Introduction                
+    De Trouwen component is ontwikkeld voor de gemeente Utrecht en heeft als doel het aansluiten [NLX](https://nlx.io/), volgens het [Common Ground](https://vng.nl/samen-organiseren/common-ground) principe, samen spelen, samen delen.
+    
+    # Common ground en open source
+    Om het voor andere partijen zo makkelijk mogenlijk te maken dit component bieden we zo veel mogenlijk informatie openbaar aan.  
+    - [datamodel als pdf](/schema/datamodel.pdf)
+    - [datamodel als mwb](/schema/datamodel.mwb)
+    - [codebase op github](https://github.com/GemeenteUtrecht/orders)
+    - [codebase als zip](https://github.com/GemeenteUtrecht/orders/archive/conduction.zip)
+    - [docker container](https://cloud.docker.com/u/huwelijksplanner/repository/docker/huwelijksplanner/orders-php)
+    - [online demo](http://orders.demo.zaakonline.nl/)
+    
+    # OpenAPI Specification, Cross-Origin Resource Sharing en linked Data
+    Deze API is gedocumenteerd in het **OpenAPI format** 
+    De API bevat Cross-Origin Resource Sharing (CORS) en is geimplementeerd volgen de [W3C spec](https://www.w3.org/TR/cors/) standaarden. De API staat cross-domain communicatie van de browser toe. Alle responses hebben een "wildcard same-origin" dit maakt ze volledig publiekelijk en toegankelijk voor iedereen. Dat geld voor elke code op elke site.
+    
+    # Authentication
+    
+    Trouwplanner heeft twee vormen van authenticatie:
+      - API Key
+      - OAuth2
+    OAuth2 - is een open protocol wat veilige authorizatie regeld op een simpele en  gestandarizeerde manier voor het web, mobile en desktop applicaties.
+    
+    <security-definitions />
+    
+  version: 0.0.1
+  title: 'Order API'
+  termsOfService: 'http://www.zaakonline.nl/terms/'
+  contact:
+    name: 'API Support'
+    email: support@conduction.nl
+    url: 'https://github.com/ConductionNL/zaakonline'
+  x-logo:
+    url: /img/vng.svg
+    altText: 'VNG Realisatie'
+  license:
+    name: 'EUPL 1.2'
+    url: 'https://opensource.org/licenses/EUPL-1.2'
+paths:
+  /order_regels:
+    get:
+      tags:
+        - OrderRegel
+      operationId: getOrderRegelCollection
+      summary: 'Retrieves the collection of OrderRegel resources.'
+      responses:
+        200:
+          description: 'OrderRegel collection response'
+          content:
+            application/ld+json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OrderRegel'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OrderRegel'
+            text/html:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OrderRegel'
+      parameters: []
+    post:
+      tags:
+        - OrderRegel
+      operationId: postOrderRegelCollection
+      summary: 'Creates a OrderRegel resource.'
+      responses:
+        201:
+          description: 'OrderRegel resource created'
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/OrderRegel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderRegel'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/OrderRegel'
+          links:
+            GetOrderRegelItem:
+              parameters:
+                id: '$response.body#/id'
+              operationId: getOrderRegelItem
+              description: 'The `id` value returned in the response can be used as the `id` parameter in `GET /order_regels/{id}`.'
+        400:
+          description: 'Invalid input'
+        404:
+          description: 'Resource not found'
+      requestBody:
+        content:
+          application/ld+json:
+            schema:
+              $ref: '#/components/schemas/OrderRegel'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderRegel'
+          text/html:
+            schema:
+              $ref: '#/components/schemas/OrderRegel'
+        description: 'The new OrderRegel resource'
+  '/order_regels/{id}':
+    get:
+      tags:
+        - OrderRegel
+      operationId: getOrderRegelItem
+      summary: 'Retrieves a OrderRegel resource.'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: 'OrderRegel resource response'
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/OrderRegel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderRegel'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/OrderRegel'
+        404:
+          description: 'Resource not found'
+    delete:
+      tags:
+        - OrderRegel
+      operationId: deleteOrderRegelItem
+      summary: 'Removes the OrderRegel resource.'
+      responses:
+        204:
+          description: 'OrderRegel resource deleted'
+        404:
+          description: 'Resource not found'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+    put:
+      tags:
+        - OrderRegel
+      operationId: putOrderRegelItem
+      summary: 'Replaces the OrderRegel resource.'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: 'OrderRegel resource updated'
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/OrderRegel'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderRegel'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/OrderRegel'
+        400:
+          description: 'Invalid input'
+        404:
+          description: 'Resource not found'
+      requestBody:
+        content:
+          application/ld+json:
+            schema:
+              $ref: '#/components/schemas/OrderRegel'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderRegel'
+          text/html:
+            schema:
+              $ref: '#/components/schemas/OrderRegel'
+        description: 'The updated OrderRegel resource'
+  /orders:
+    get:
+      tags:
+        - Order
+      operationId: getOrderCollection
+      summary: 'Retrieves the collection of Order resources.'
+      responses:
+        200:
+          description: 'Order collection response'
+          content:
+            application/ld+json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Order'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Order'
+            text/html:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Order'
+      parameters: []
+    post:
+      tags:
+        - Order
+      operationId: postOrderCollection
+      summary: 'Creates a Order resource.'
+      responses:
+        201:
+          description: 'Order resource created'
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Order'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Order'
+          links:
+            GetOrderItem:
+              parameters:
+                id: '$response.body#/id'
+              operationId: getOrderItem
+              description: 'The `id` value returned in the response can be used as the `id` parameter in `GET /orders/{id}`.'
+        400:
+          description: 'Invalid input'
+        404:
+          description: 'Resource not found'
+      requestBody:
+        content:
+          application/ld+json:
+            schema:
+              $ref: '#/components/schemas/Order'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Order'
+          text/html:
+            schema:
+              $ref: '#/components/schemas/Order'
+        description: 'The new Order resource'
+  '/orders/{id}':
+    get:
+      tags:
+        - Order
+      operationId: getOrderItem
+      summary: 'Retrieves a Order resource.'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: 'Order resource response'
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Order'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Order'
+        404:
+          description: 'Resource not found'
+    put:
+      tags:
+        - Order
+      operationId: putOrderItem
+      summary: 'Replaces the Order resource.'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: 'Order resource updated'
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Order'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Order'
+        400:
+          description: 'Invalid input'
+        404:
+          description: 'Resource not found'
+      requestBody:
+        content:
+          application/ld+json:
+            schema:
+              $ref: '#/components/schemas/Order'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Order'
+          text/html:
+            schema:
+              $ref: '#/components/schemas/Order'
+        description: 'The updated Order resource'
+    delete:
+      tags:
+        - Order
+      operationId: deleteOrderItem
+      summary: 'Removes the Order resource.'
+      responses:
+        204:
+          description: 'Order resource deleted'
+        404:
+          description: 'Resource not found'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+  '/orders/{id}/log':
+    get:
+      summary: 'Logboek inzien'
+      description: 'Geeft een array van eerdere versies en wijzigingen van dit object'
+      consumes:
+        - application/json
+        - text/html
+      produces:
+        - application/json
+      responses:
+        200:
+          description: 'Een overzicht van versies'
+        400:
+          description: 'Ongeldige aanvraag'
+        404:
+          description: 'Huwelijk of aanvraag niet gevonden'
+      tags:
+        - Order
+      operationId: logOrderItem
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+  '/orders/{id}/revert/{version}':
+    post:
+      summary: 'Versie terugdraaid'
+      description: 'Herstel een eerdere versie van dit object. Dit is een destructieve actie die niet ongedaan kan worden gemaakt'
+      consumes:
+        - application/json
+        - text/html
+      produces:
+        - application/json
+      responses:
+        202:
+          description: 'Terug gedraaid naar eerdere versie'
+        400:
+          description: 'Ongeldige aanvraag'
+        404:
+          description: 'Huwelijk of aanvraag niet gevonden'
+      tags:
+        - Order
+      operationId: revertOrderItem
+      requestBody:
+        content:
+          application/ld+json:
+            schema:
+              $ref: '#/components/schemas/Order-write'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Order-write'
+          text/html:
+            schema:
+              $ref: '#/components/schemas/Order-write'
+        description: 'The new Order resource'
+  /organisaties:
+    get:
+      tags:
+        - Organisatie
+      operationId: getOrganisatieCollection
+      summary: 'Retrieves the collection of Organisatie resources.'
+      responses:
+        200:
+          description: 'Organisatie collection response'
+          content:
+            application/ld+json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Organisatie'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Organisatie'
+            text/html:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Organisatie'
+      parameters: []
+    post:
+      tags:
+        - Organisatie
+      operationId: postOrganisatieCollection
+      summary: 'Creates a Organisatie resource.'
+      responses:
+        201:
+          description: 'Organisatie resource created'
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Organisatie'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Organisatie'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Organisatie'
+          links:
+            GetOrganisatieItem:
+              parameters:
+                id: '$response.body#/id'
+              operationId: getOrganisatieItem
+              description: 'The `id` value returned in the response can be used as the `id` parameter in `GET /organisaties/{id}`.'
+        400:
+          description: 'Invalid input'
+        404:
+          description: 'Resource not found'
+      requestBody:
+        content:
+          application/ld+json:
+            schema:
+              $ref: '#/components/schemas/Organisatie'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Organisatie'
+          text/html:
+            schema:
+              $ref: '#/components/schemas/Organisatie'
+        description: 'The new Organisatie resource'
+  '/organisaties/{id}':
+    get:
+      tags:
+        - Organisatie
+      operationId: getOrganisatieItem
+      summary: 'Retrieves a Organisatie resource.'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: 'Organisatie resource response'
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Organisatie'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Organisatie'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Organisatie'
+        404:
+          description: 'Resource not found'
+    put:
+      tags:
+        - Organisatie
+      operationId: putOrganisatieItem
+      summary: 'Replaces the Organisatie resource.'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: 'Organisatie resource updated'
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/Organisatie'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Organisatie'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/Organisatie'
+        400:
+          description: 'Invalid input'
+        404:
+          description: 'Resource not found'
+      requestBody:
+        content:
+          application/ld+json:
+            schema:
+              $ref: '#/components/schemas/Organisatie'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Organisatie'
+          text/html:
+            schema:
+              $ref: '#/components/schemas/Organisatie'
+        description: 'The updated Organisatie resource'
+    delete:
+      tags:
+        - Organisatie
+      operationId: deleteOrganisatieItem
+      summary: 'Removes the Organisatie resource.'
+      responses:
+        204:
+          description: 'Organisatie resource deleted'
+        404:
+          description: 'Resource not found'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+  '/organisaties/{id}/log':
+    get:
+      summary: 'Logboek inzien'
+      description: 'Geeft een array van eerdere versies en wijzigingen van dit object'
+      consumes:
+        - application/json
+        - text/html
+      produces:
+        - application/json
+      responses:
+        200:
+          description: 'Een overzicht van versies'
+        400:
+          description: 'Ongeldige aanvraag'
+        404:
+          description: 'Huwelijk of aanvraag niet gevonden'
+      tags:
+        - Organisatie
+      operationId: logOrganisatieItem
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+  '/organisaties/{id}/revert/{version}':
+    post:
+      summary: 'Versie terugdraaid'
+      description: 'Herstel een eerdere versie van dit object. Dit is een destructieve actie die niet ongedaan kan worden gemaakt'
+      consumes:
+        - application/json
+        - text/html
+      produces:
+        - application/json
+      responses:
+        202:
+          description: 'Terug gedraaid naar eerdere versie'
+        400:
+          description: 'Ongeldige aanvraag'
+        404:
+          description: 'Huwelijk of aanvraag niet gevonden'
+      tags:
+        - Organisatie
+      operationId: revertOrganisatieItem
+      requestBody:
+        content:
+          application/ld+json:
+            schema:
+              $ref: '#/components/schemas/Organisatie-write'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Organisatie-write'
+          text/html:
+            schema:
+              $ref: '#/components/schemas/Organisatie-write'
+        description: 'The new Organisatie resource'
+  /users:
+    get:
+      tags:
+        - User
+      operationId: getUserCollection
+      summary: 'Retrieves the collection of User resources.'
+      responses:
+        200:
+          description: 'User collection response'
+          content:
+            application/ld+json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User-user_user:read'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User-user_user:read'
+            text/html:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User-user_user:read'
+      parameters: []
+    post:
+      tags:
+        - User
+      operationId: postUserCollection
+      summary: 'Creates a User resource.'
+      responses:
+        201:
+          description: 'User resource created'
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/User-user_user:read'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User-user_user:read'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/User-user_user:read'
+          links:
+            GetUserItem:
+              parameters:
+                id: '$response.body#/id'
+              operationId: getUserItem
+              description: 'The `id` value returned in the response can be used as the `id` parameter in `GET /users/{id}`.'
+        400:
+          description: 'Invalid input'
+        404:
+          description: 'Resource not found'
+      requestBody:
+        content:
+          application/ld+json:
+            schema:
+              $ref: '#/components/schemas/User-user_user:write'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User-user_user:write'
+          text/html:
+            schema:
+              $ref: '#/components/schemas/User-user_user:write'
+        description: 'The new User resource'
+  '/users/{id}':
+    get:
+      tags:
+        - User
+      operationId: getUserItem
+      summary: 'Retrieves a User resource.'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: 'User resource response'
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/User-user_user:read'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User-user_user:read'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/User-user_user:read'
+        404:
+          description: 'Resource not found'
+    delete:
+      tags:
+        - User
+      operationId: deleteUserItem
+      summary: 'Removes the User resource.'
+      responses:
+        204:
+          description: 'User resource deleted'
+        404:
+          description: 'Resource not found'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+    put:
+      tags:
+        - User
+      operationId: putUserItem
+      summary: 'Replaces the User resource.'
+      parameters:
+        -
+          name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: 'User resource updated'
+          content:
+            application/ld+json:
+              schema:
+                $ref: '#/components/schemas/User-user_user:read'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User-user_user:read'
+            text/html:
+              schema:
+                $ref: '#/components/schemas/User-user_user:read'
+        400:
+          description: 'Invalid input'
+        404:
+          description: 'Resource not found'
+      requestBody:
+        content:
+          application/ld+json:
+            schema:
+              $ref: '#/components/schemas/User-user_user:write'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User-user_user:write'
+          text/html:
+            schema:
+              $ref: '#/components/schemas/User-user_user:write'
+        description: 'The updated User resource'
+security:
+  -
+    apiKey: []
+components:
+  schemas:
+    Order:
+      type: object
+      description: Order
+      properties:
+        id:
+          description: 'Het identificatie nummer van deze Order <br /><b>Schema:</b> <a href="https://schema.org/identifier">https://schema.org/identifier</a>'
+          type: integer
+        identificatie:
+          type: string
+          example: 6a36c2c4-213e-4348-a467-dfa3a30f64aa
+          description: 'De unieke identificatie van dit object binnen de organisatie die dit object heeft gecreeerd. <br /><b>Schema:</b> <a href="https://schema.org/identifier">https://schema.org/identifier</a>'
+          maxLength: 40
+        referentie:
+          title: Organisatie
+          type: string
+          example: '123456789'
+          required: 'true'
+          maxLength: 14
+          minLength: 1
+          description: 'Het RSIN van de Niet-natuurlijk persoon zijnde de organisatie die dit Document heeft gecreeerd. Dit moet een geldig RSIN zijn van 9 nummers en voldoen aan https://nl.wikipedia.org/wiki/Burgerservicenummer#11-proef'
+        bronOrganisatie:
+          description: 'Het Huwelijk waartoe deze partner behoord'
+          type: string
+        naam:
+          description: 'De naam van deze locatie <br /><b>Schema:</b> <a href="https://schema.org/name">https://schema.org/name</a>'
+          type: string
+        contactPersoon:
+          title: Contactpersoon
+          type: url
+          example: 'https://ref.tst.vng.cloud/zrc/api/v1/zaken/24524f1c-1c14-4801-9535-22007b8d1b65'
+          required: 'true'
+          maxLength: 255
+          format: uri
+          description: 'De besteller van de order'
+      required:
+        - naam
+    Order-read:
+      type: object
+      description: Order
+      properties:
+        id:
+          description: 'Het identificatie nummer van deze Order <br /><b>Schema:</b> <a href="https://schema.org/identifier">https://schema.org/identifier</a>'
+          type: integer
+        identificatie:
+          type: string
+          example: 6a36c2c4-213e-4348-a467-dfa3a30f64aa
+          description: 'De unieke identificatie van dit object binnen de organisatie die dit object heeft gecreeerd. <br /><b>Schema:</b> <a href="https://schema.org/identifier">https://schema.org/identifier</a>'
+          maxLength: 40
+        referentie:
+          title: Organisatie
+          type: string
+          example: '123456789'
+          required: 'true'
+          maxLength: 14
+          minLength: 1
+          description: 'Het RSIN van de Niet-natuurlijk persoon zijnde de organisatie die dit Document heeft gecreeerd. Dit moet een geldig RSIN zijn van 9 nummers en voldoen aan https://nl.wikipedia.org/wiki/Burgerservicenummer#11-proef'
+        naam:
+          description: 'De naam van deze locatie <br /><b>Schema:</b> <a href="https://schema.org/name">https://schema.org/name</a>'
+          type: string
+        contactPersoon:
+          title: Contactpersoon
+          type: url
+          example: 'https://ref.tst.vng.cloud/zrc/api/v1/zaken/24524f1c-1c14-4801-9535-22007b8d1b65'
+          required: 'true'
+          maxLength: 255
+          format: uri
+          description: 'De besteller van de order'
+      required:
+        - naam
+    Order-write:
+      type: object
+      description: Order
+      properties:
+        id:
+          description: 'Het identificatie nummer van deze Order <br /><b>Schema:</b> <a href="https://schema.org/identifier">https://schema.org/identifier</a>'
+          type: integer
+        identificatie:
+          type: string
+          example: 6a36c2c4-213e-4348-a467-dfa3a30f64aa
+          description: 'De unieke identificatie van dit object binnen de organisatie die dit object heeft gecreeerd. <br /><b>Schema:</b> <a href="https://schema.org/identifier">https://schema.org/identifier</a>'
+          maxLength: 40
+        referentie:
+          title: Organisatie
+          type: string
+          example: '123456789'
+          required: 'true'
+          maxLength: 14
+          minLength: 1
+          description: 'Het RSIN van de Niet-natuurlijk persoon zijnde de organisatie die dit Document heeft gecreeerd. Dit moet een geldig RSIN zijn van 9 nummers en voldoen aan https://nl.wikipedia.org/wiki/Burgerservicenummer#11-proef'
+        naam:
+          description: 'De naam van deze locatie <br /><b>Schema:</b> <a href="https://schema.org/name">https://schema.org/name</a>'
+          type: string
+        contactPersoon:
+          title: Contactpersoon
+          type: url
+          example: 'https://ref.tst.vng.cloud/zrc/api/v1/zaken/24524f1c-1c14-4801-9535-22007b8d1b65'
+          required: 'true'
+          maxLength: 255
+          format: uri
+          description: 'De besteller van de order'
+      required:
+        - naam
+    OrderRegel:
+      type: object
+      description: OrderRegel
+      properties:
+        id:
+          description: 'Het identificatie nummer van deze regel <br /><b>Schema:</b> <a href="https://schema.org/identifier">https://schema.org/identifier</a>'
+          type: integer
+        product:
+          title: Contactpersoon
+          type: url
+          example: 'https://ref.tst.vng.cloud/zrc/api/v1/zaken/24524f1c-1c14-4801-9535-22007b8d1b65'
+          required: 'true'
+          maxLength: 255
+          format: uri
+          description: product
+    Organisatie:
+      type: object
+      description: Organisatie
+      properties:
+        id:
+          description: 'Het unieke identificatie nummer van deze organisatie binnen deze api <br /><b>Schema:</b> <a href="https://schema.org/identifier">https://schema.org/identifier</a>'
+          type: integer
+        rsin:
+          title: Organisatie
+          type: string
+          example: '123456789'
+          required: 'true'
+          maxLength: 9
+          minLength: 8
+          description: 'Het RSIN van deze organisatie. Dit moet een geldig RSIN zijn van 9 nummers en voldoen aan https://nl.wikipedia.org/wiki/Burgerservicenummer#11-proef'
+        kvk:
+          title: kvk
+          type: string
+          example: '12345678'
+          required: 'true'
+          maxLength: 8
+          minLength: 9
+          description: 'Het KVK nummer van deze organisatie'
+        btw:
+          title: btw
+          type: string
+          example: NL123456789B01
+          required: 'true'
+          minLength: 14
+          maxLength: 18
+          description: 'Het BTW nummer van deze organisatie https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/btw/administratie_bijhouden/btw_nummers_controleren/uw_btw_nummer, het btw nummer moet het RSIN nummer bevatten.'
+        eori:
+          title: eori
+          type: string
+          example: '123456789'
+          required: 'true'
+          maxLength: 14
+          minLength: 5
+          description: 'Het EORI (Europese Douane NR) van deze organisatie, zie ook https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/douane_voor_bedrijven/naslagwerken_en_overige_informatie/eori_nummer/'
+        naam:
+          type: string
+          maxLength: 255
+          minLength: 5
+          example: 'Gemeente Zuiddrecht'
+          description: 'De naam van deze organisatie <br /><b>Schema:</b> <a href="https://schema.org/name">https://schema.org/name</a>'
+        beschrijving:
+          type: string
+          maxLength: 2000
+          minLength: 25
+          example: 'Deze prachtige organisatie staat voor de hoogste normen en waarden'
+          description: 'Een beschrijvende tekst over deze organisatie  <br /><b>Schema:</b> <a href="https://schema.org/description">https://schema.org/description</a>'
+        emailadres:
+          type: email
+          maxLength: 255
+          minLength: 8
+          example: john@do.nl
+          description: 'Het email addres van deze organisatie <br /><b>Schema:</b> <a href="https://schema.org/email">https://schema.org/email</a>'
+        telefoonnummer:
+          type: string
+          maxLength: 255
+          minLength: 10
+          example: +31(0)6-12345678
+          description: 'Het telefoon nummer van deze organisatie <br /><b>Schema:</b> <a href="https://schema.org/telephone">https://schema.org/telephone</a>'
+        orders:
+          description: 'De Orders die bij deze organisatie horen'
+          type: array
+          items:
+            type: string
+        users:
+          description: 'Gebruikers die bij deze organisatie horen'
+          type: array
+          items:
+            type: string
+        instellingen:
+          title: Instellingen
+          type: array
+          example: '[]'
+          description: 'HDe instellingen voor deze organisatie, kijk in de documentatie van deze api voor de mogelijke instellingen'
+          items:
+            type: string
+      required:
+        - naam
+        - beschrijving
+    Organisatie-read:
+      type: object
+      description: Organisatie
+      properties:
+        id:
+          description: 'Het unieke identificatie nummer van deze organisatie binnen deze api <br /><b>Schema:</b> <a href="https://schema.org/identifier">https://schema.org/identifier</a>'
+          type: integer
+        rsin:
+          title: Organisatie
+          type: string
+          example: '123456789'
+          required: 'true'
+          maxLength: 9
+          minLength: 8
+          description: 'Het RSIN van deze organisatie. Dit moet een geldig RSIN zijn van 9 nummers en voldoen aan https://nl.wikipedia.org/wiki/Burgerservicenummer#11-proef'
+        kvk:
+          title: kvk
+          type: string
+          example: '12345678'
+          required: 'true'
+          maxLength: 8
+          minLength: 9
+          description: 'Het KVK nummer van deze organisatie'
+        btw:
+          title: btw
+          type: string
+          example: NL123456789B01
+          required: 'true'
+          minLength: 14
+          maxLength: 18
+          description: 'Het BTW nummer van deze organisatie https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/btw/administratie_bijhouden/btw_nummers_controleren/uw_btw_nummer, het btw nummer moet het RSIN nummer bevatten.'
+        eori:
+          title: eori
+          type: string
+          example: '123456789'
+          required: 'true'
+          maxLength: 14
+          minLength: 5
+          description: 'Het EORI (Europese Douane NR) van deze organisatie, zie ook https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/douane_voor_bedrijven/naslagwerken_en_overige_informatie/eori_nummer/'
+        naam:
+          type: string
+          maxLength: 255
+          minLength: 5
+          example: 'Gemeente Zuiddrecht'
+          description: 'De naam van deze organisatie <br /><b>Schema:</b> <a href="https://schema.org/name">https://schema.org/name</a>'
+        beschrijving:
+          type: string
+          maxLength: 2000
+          minLength: 25
+          example: 'Deze prachtige organisatie staat voor de hoogste normen en waarden'
+          description: 'Een beschrijvende tekst over deze organisatie  <br /><b>Schema:</b> <a href="https://schema.org/description">https://schema.org/description</a>'
+        emailadres:
+          type: email
+          maxLength: 255
+          minLength: 8
+          example: john@do.nl
+          description: 'Het email addres van deze organisatie <br /><b>Schema:</b> <a href="https://schema.org/email">https://schema.org/email</a>'
+        telefoonnummer:
+          type: string
+          maxLength: 255
+          minLength: 10
+          example: +31(0)6-12345678
+          description: 'Het telefoon nummer van deze organisatie <br /><b>Schema:</b> <a href="https://schema.org/telephone">https://schema.org/telephone</a>'
+        instellingen:
+          title: Instellingen
+          type: array
+          example: '[]'
+          description: 'HDe instellingen voor deze organisatie, kijk in de documentatie van deze api voor de mogelijke instellingen'
+          items:
+            type: string
+      required:
+        - naam
+        - beschrijving
+    Organisatie-write:
+      type: object
+      description: Organisatie
+      properties:
+        id:
+          description: 'Het unieke identificatie nummer van deze organisatie binnen deze api <br /><b>Schema:</b> <a href="https://schema.org/identifier">https://schema.org/identifier</a>'
+          type: integer
+        rsin:
+          title: Organisatie
+          type: string
+          example: '123456789'
+          required: 'true'
+          maxLength: 9
+          minLength: 8
+          description: 'Het RSIN van deze organisatie. Dit moet een geldig RSIN zijn van 9 nummers en voldoen aan https://nl.wikipedia.org/wiki/Burgerservicenummer#11-proef'
+        kvk:
+          title: kvk
+          type: string
+          example: '12345678'
+          required: 'true'
+          maxLength: 8
+          minLength: 9
+          description: 'Het KVK nummer van deze organisatie'
+        btw:
+          title: btw
+          type: string
+          example: NL123456789B01
+          required: 'true'
+          minLength: 14
+          maxLength: 18
+          description: 'Het BTW nummer van deze organisatie https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/btw/administratie_bijhouden/btw_nummers_controleren/uw_btw_nummer, het btw nummer moet het RSIN nummer bevatten.'
+        eori:
+          title: eori
+          type: string
+          example: '123456789'
+          required: 'true'
+          maxLength: 14
+          minLength: 5
+          description: 'Het EORI (Europese Douane NR) van deze organisatie, zie ook https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/douane_voor_bedrijven/naslagwerken_en_overige_informatie/eori_nummer/'
+        naam:
+          type: string
+          maxLength: 255
+          minLength: 5
+          example: 'Gemeente Zuiddrecht'
+          description: 'De naam van deze organisatie <br /><b>Schema:</b> <a href="https://schema.org/name">https://schema.org/name</a>'
+        beschrijving:
+          type: string
+          maxLength: 2000
+          minLength: 25
+          example: 'Deze prachtige organisatie staat voor de hoogste normen en waarden'
+          description: 'Een beschrijvende tekst over deze organisatie  <br /><b>Schema:</b> <a href="https://schema.org/description">https://schema.org/description</a>'
+        emailadres:
+          type: email
+          maxLength: 255
+          minLength: 8
+          example: john@do.nl
+          description: 'Het email addres van deze organisatie <br /><b>Schema:</b> <a href="https://schema.org/email">https://schema.org/email</a>'
+        telefoonnummer:
+          type: string
+          maxLength: 255
+          minLength: 10
+          example: +31(0)6-12345678
+          description: 'Het telefoon nummer van deze organisatie <br /><b>Schema:</b> <a href="https://schema.org/telephone">https://schema.org/telephone</a>'
+        instellingen:
+          title: Instellingen
+          type: array
+          example: '[]'
+          description: 'HDe instellingen voor deze organisatie, kijk in de documentatie van deze api voor de mogelijke instellingen'
+          items:
+            type: string
+      required:
+        - naam
+        - beschrijving
+    'User-user_user:read':
+      type: object
+      description: 'A user, as unique signed in individual who might be a member of an organisation.'
+      properties:
+        fullname:
+          type: string
+    'User-user_user:write':
+      type: object
+      description: 'A user, as unique signed in individual who might be a member of an organisation.'
+      properties:
+        fullname:
+          type: string
+        plainPassword: {  }
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      description: 'Value for the Authorization header'
+      name: Authorization
+servers:
+  -
+    url: //orders.demo.zaakonline.nl/
+    description: 'Sandbox server'
+externalDocs:
+  description: 'Find out more in depth information on the working of the zaakonline code base.'
+  url: 'https://github.com/ConductionNL/zaakonline'
+tags:
+  -
+    name: Order
+    description: ''
+  -
+    name: Organisatie
+    description: 'De Organisatie wordt gebruikt om standaard configuraties in te regelen'
+  -
+    name: User
+    description: 'Een gebruiker, of in dit geval een applicatie gebonden aan een JWT token behorende tot een organisatie'
+x-tagGroups:
+  -
+    name: Orders
+    tags:
+      - Order
+  -
+    name: Organisatie
+    tags:
+      - Organisatie
+      - User
