@@ -206,21 +206,20 @@ class Organisatie implements StringableInterface
 	 */
 	public $kvk;
 	
-	
 	/**
 	 * Het BTW nummer van deze organisatie https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/btw/administratie_bijhouden/btw_nummers_controleren/uw_btw_nummer, het btw nummer moet het RSIN nummer bevatten.
 	 *
 	 * @var string
 	 * @ORM\Column(
 	 *     type     = "string",
-	 *     length   = 14
+	 *     length   = 18
 	 * )
 	 * @Groups({"read", "write"})
 	 * @Assert\Length(
 	 *      min = 14,
-	 *      max = 14,
+	 *      max = 18,
 	 *      minMessage = "Het BTW nummer moet ten minste {{ limit }} karakters lang zijn",
-	 *      maxMessage = "Het BTW nummer kan niet langer dan {{ limit }} karakters zijn"
+	 *      maxMessage = "Het BTW nummer  kan niet langer dan {{ limit }} karakters zijn"
 	 * )
 	 * @ApiProperty(
 	 *     attributes={
@@ -229,8 +228,8 @@ class Organisatie implements StringableInterface
 	 *             "type"="string",
 	 *             "example"="NL123456789B01",
 	 *             "required"="true",
-	 *             "maxLength"=14,
 	 *             "minLength"=14,
+	 *             "maxLength"=18,
 	 *             "description"="Het BTW nummer van deze organisatie https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/btw/administratie_bijhouden/btw_nummers_controleren/uw_btw_nummer"
 	 *         }
 	 *     }
@@ -400,46 +399,18 @@ class Organisatie implements StringableInterface
 	public $telefoonnummer;
 	
 	/**
-	 * De huwelijken verbonden aan deze organisatie
+	 * De orders verbonden aan deze organisatie
 	 *
-	 * @var \Doctrine\Common\Collections\Collection|\App\Entity\Huwelijk[]|null
+	 * @var \Doctrine\Common\Collections\Collection|\App\Entity\Order[]|null
 	 *
 	 * @ORM\OneToMany(
-	 * 		targetEntity="\App\Entity\Huwelijk",
+	 * 		targetEntity="\App\Entity\Order",
 	 * 		mappedBy="bronOrganisatie", 
 	 * 		fetch="EXTRA_LAZY"
 	 * )
 	 *
 	 */
-	public $huwelijken;
-	
-	/**
-	 * De personen verbonden aan deze organisatie
-	 *
-	 * @var \Doctrine\Common\Collections\Collection|\App\Entity\Huwelijk[]|null
-	 *
-	 * @ORM\OneToMany(
-	 * 		targetEntity="\App\Entity\Persoon",
-	 * 		mappedBy="bronOrganisatie", 
-	 * 		fetch="EXTRA_LAZY"
-	 * )
-	 *
-	 */
-	public $personen;
-	
-	/**
-	 * De soorten huwelijken verbonden aan deze organisatie
-	 *
-	 * @var \Doctrine\Common\Collections\Collection|\App\Entity\Soort[]|null
-	 *
-	 * @ORM\OneToMany(
-	 * 		targetEntity="\App\Entity\Soort",
-	 * 		mappedBy="bronOrganisatie", 
-	 * 		fetch="EXTRA_LAZY"
-	 * )
-	 *
-	 */
-	public $soorten;
+	public $orders;
 	
 	/**
 	 * De bij deze organisatie horende gebruikers
