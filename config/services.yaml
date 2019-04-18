@@ -8,7 +8,7 @@ parameters:
 
     api_documentation:
         servers:
-        -   url: //resources.zaakonline.nl/
+        -   url: //orders.zaakonline.nl/
             description: Sandbox server
         info:
             description: |
@@ -22,10 +22,10 @@ parameters:
                 Om het voor andere partijen zo makkelijk mogenlijk te maken dit component bieden we zo veel mogenlijk informatie openbaar aan.  
                 - [datamodel als pdf](/schema/datamodel.pdf)
                 - [datamodel als mwb](/schema/datamodel.mwb)
-                - [codebase op github](https://github.com/GemeenteUtrecht/resources)
-                - [codebase als zip](https://github.com/GemeenteUtrecht/resources/archive/conduction.zip)
-                - [docker container](https://cloud.docker.com/u/huwelijksplanner/repository/docker/huwelijksplanner/resources-php)
-                - [online demo](http://resources.demo.zaakonline.nl/)
+                - [codebase op github](https://github.com/GemeenteUtrecht/orders)
+                - [codebase als zip](https://github.com/GemeenteUtrecht/orders/archive/conduction.zip)
+                - [docker container](https://cloud.docker.com/u/huwelijksplanner/repository/docker/huwelijksplanner/orders-component)
+                - [online demo](http://orders.demo.zaakonline.nl/)
 
                 # OpenAPI Specification, Cross-Origin Resource Sharing en linked Data
                 Deze API is gedocumenteerd in het **OpenAPI format** 
@@ -41,7 +41,7 @@ parameters:
                 <security-definitions />
 
             version: 0.0.1
-            title: 'Resources API'
+            title: 'Order API'
             termsOfService: 'http://www.zaakonline.nl/terms/'
             contact:
                 name: API Support
@@ -58,17 +58,17 @@ parameters:
             url: 'http://www.zaakonline.nl'
         tags:
               # The general endpoints  
-            - name: Document
-              description: "Een document zijnde bestand, film of geluidsopname"
+            - name: Order
+              description: "Een bestelling"
             - name: Organisatie
               description: "De Organisatie wordt gebruikt om standaard configuraties in te regelen"  
             - name: User
               description: "Een gebruiker, of in dit geval een applicatie gebonden aan een JWT token behorende tot een organisatie"
               # Grouping the endopoint  
         x-tagGroups:
-            - name: Resources
+            - name: Order
               tags:
-              - Document
+              - Order
             - name: Organisatie
               tags:
               - Organisatie

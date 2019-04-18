@@ -14,7 +14,7 @@ version: '3.4'
 
 services:
   # The database
-  db:
+  mysql-component:
     # In production, you may want to use a managed database service
     image: mysql:${MYSQL_VERSION} 
     environment:
@@ -28,30 +28,30 @@ services:
       - "3306:3306"
       
   # The PHP container
-  resources_component:
+  orders-component:
     image: ${CONTAINER_REGISTRY_BASE}/${CONTAINER_PROJECT_NAME}-component:latest
     build:
       context: ./ 
       dockerfile: docker/php/Dockerfile
       cache_from:
-        - ${CONTAINER_REGISTRY_BASE}/${CONTAINER_PROJECT_NAME}_php
-        - ${CONTAINER_REGISTRY_BASE}/${CONTAINER_PROJECT_NAME}_api  
+        - ${CONTAINER_REGISTRY_BASE}/${CONTAINER_PROJECT_NAME}-component
+        - ${CONTAINER_REGISTRY_BASE}/${CONTAINER_PROJECT_NAME}-nginx  
     depends_on:
-      - db
+      - mysql-component
     volumes:
       - ./:/srv/api:rw,cached
       
   # The NGINX container
-  resources_api:
+  orders-api:
     image: ${CONTAINER_REGISTRY_BASE}/${CONTAINER_PROJECT_NAME}-nginx:latest
     build: 
       context: ./ 
       dockerfile: docker/nginx/Dockerfile
       cache_from:
-        - ${CONTAINER_REGISTRY_BASE}/${CONTAINER_PROJECT_NAME}_php
-        - ${CONTAINER_REGISTRY_BASE}/${CONTAINER_PROJECT_NAME}_api  
+        - ${CONTAINER_REGISTRY_BASE}/${CONTAINER_PROJECT_NAME}-component
+        - ${CONTAINER_REGISTRY_BASE}/${CONTAINER_PROJECT_NAME}-nginx  
     depends_on:
-      - resources_component
+      - orders-component
     volumes:
       - ./public:/srv/api/public:ro
     ports:

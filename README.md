@@ -1,17 +1,17 @@
-# Resources component
+# orders component
 
 - Version: 0.0.0.1
 - Source: https://github.com/utrecht/agendas
-- Keywords: resources, common ground, NLX, utrecht, conduction
+- Keywords: orders, common ground, NLX, utrecht, conduction
 - PhpVersion: 7.2
 
-Referentieimplementatie van de resources Component (TC).
+Referentieimplementatie van de orders Component (TC).
 
 ## Inleiding
 
-Deze referentieimplementatie toont aan dat de API specificatie voor de resources implementeerbaar is, en vormt een voorbeeld voor andere implementaties indien ergens twijfel bestaat.
+Deze referentieimplementatie toont aan dat de API specificatie voor de orders implementeerbaar is, en vormt een voorbeeld voor andere implementaties indien ergens twijfel bestaat.
 
-Deze component heeft ook een [testomgeving](http://resources.demo.zaakonline.nl/) waar leveranciers tegenaan kunnen
+Deze component heeft ook een [testomgeving](http://orders.demo.zaakonline.nl/) waar leveranciers tegenaan kunnen
 testen.
 
 ## Documentatie
@@ -23,10 +23,10 @@ Om het voor andere partijen zo makkelijk mogenlijk te maken dit component bieden
 - [datamodel](/schema/datamodel.pdf) als pdf.
 - [datamodel](/schema/datamodel.mwb.bak) als bak.
 - [database connectie](/schema/datamodel.mwb) voor mysql workbench.
-- [codebase](https://github.com/GemeenteUtrecht/resources)  op github.
-- [codebase](https://github.com/GemeenteUtrecht/resources/archive/master.zip)  als zip.
-- [docker container](https://cloud.docker.com/u/huwelijksplanner/repository/docker/huwelijksplanner/resources-component) op docker hub.
-- [online demo](http://resources.demo.zaakonline.nl/) op testomgeving zaakonline.
+- [codebase](https://github.com/GemeenteUtrecht/orders)  op github.
+- [codebase](https://github.com/GemeenteUtrecht/orders/archive/master.zip)  als zip.
+- [docker container](https://cloud.docker.com/u/huwelijksplanner/repository/docker/huwelijksplanner/orders-component) op docker hub.
+- [online demo](http://orders.demo.zaakonline.nl/) op testomgeving zaakonline.
 
 ## Licentie
 
