@@ -12,7 +12,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use ActivityLogBundle\Entity\Interfaces\StringableInterface;
 
 /**
- * Document
+ * Order
  * 
  * Beschrijving
  * 
@@ -24,21 +24,21 @@ use ActivityLogBundle\Entity\Interfaces\StringableInterface;
  *
  * @link   		http//:www.conduction.nl
  * @package		Commen Ground
- * @subpackage  Documenten
+ * @subpackage  Order
  * 
  *  @ApiResource( 
  *  collectionOperations={
  *  	"get"={
  *  		"normalizationContext"={"groups"={"read"}},
  *  		"denormalizationContext"={"groups"={"write"}},
- *      	"path"="/documenten",
+ *      	"path"="/orders",
  *  		"openapi_context" = {
  *  		}
  *  	},
  *  	"post"={
  *  		"normalizationContext"={"groups"={"read"}},
  *  		"denormalizationContext"={"groups"={"write"}},
- *      	"path"="/documenten",
+ *      	"path"="/orders",
  *  		"openapi_context" = {
  *  		}
  *  	}
@@ -47,27 +47,27 @@ use ActivityLogBundle\Entity\Interfaces\StringableInterface;
  *     "get"={
  *  		"normalizationContext"={"groups"={"read"}},
  *  		"denormalizationContext"={"groups"={"write"}},
- *      	"path"="/documenten/{id}",
+ *      	"path"="/orders/{id}",
  *  		"openapi_context" = {
  *  		}
  *  	},
  *     "put"={
  *  		"normalizationContext"={"groups"={"read"}},
  *  		"denormalizationContext"={"groups"={"write"}},
- *      	"path"="/documenten/{id}",
+ *      	"path"="/orders/{id}",
  *  		"openapi_context" = {
  *  		}
  *  	},
  *     "delete"={
  *  		"normalizationContext"={"groups"={"read"}},
  *  		"denormalizationContext"={"groups"={"write"}},
- *      	"path"="/documenten/{id}",
+ *      	"path"="/orders/{id}",
  *  		"openapi_context" = {
  *  		}
  *  	},
  *     "log"={
  *         	"method"="GET",
- *         	"path"="/documenten/{id}/log",
+ *         	"path"="/orders/{id}/log",
  *          "controller"= HuwelijkController::class,
  *     		"normalization_context"={"groups"={"read"}},
  *     		"denormalization_context"={"groups"={"write"}},
@@ -96,7 +96,7 @@ use ActivityLogBundle\Entity\Interfaces\StringableInterface;
  *     },
  *     "revert"={
  *         	"method"="POST",
- *         	"path"="/documenten/{id}/revert/{version}",
+ *         	"path"="/orders/{id}/revert/{version}",
  *          "controller"= HuwelijkController::class,
  *     		"normalization_context"={"groups"={"read"}},
  *     		"denormalization_context"={"groups"={"write"}},
@@ -129,11 +129,11 @@ use ActivityLogBundle\Entity\Interfaces\StringableInterface;
  * @Gedmo\Loggable(logEntryClass="ActivityLogBundle\Entity\LogEntry")
  * @ORM\HasLifecycleCallbacks
  */
-class Document implements StringableInterface
+class Order implements StringableInterface
 {
 	/**
-	 * Het identificatie nummer van dit Document <br /><b>Schema:</b> <a href="https://schema.org/identifier">https://schema.org/identifier</a>
-	 *
+	 * Het identificatie nummer van deze Order <br /><b>Schema:</b> <a href="https://schema.org/identifier">https://schema.org/identifier</a>
+	 * 
 	 * @var int|null
 	 *
 	 * @ORM\Id
@@ -173,129 +173,99 @@ class Document implements StringableInterface
 	public $identificatie;
 	
 	/**
+	 * Het RSIN van de Niet-natuurlijk persoon zijnde de organisatie die dit Document heeft gecreeerd. Dit moet een geldig RSIN zijn van 9 nummers en voldoen aan https://nl.wikipedia.org/wiki/Burgerservicenummer#11-proef
+	 *
+	 * @var string
+	 * @ORM\Column(
+	 *     type     = "string"
+	 * )
+	 * @Groups({"read", "write"})
+	 * @ApiProperty(
+	 *     attributes={
+	 *         "openapi_context"={
+	 *             "title"="Organisatie",
+	 *             "type"="string",
+	 *             "example"="123456789",
+	 *             "required"="true",
+	 *             "maxLength"=14,
+	 *             "minLength"=1,
+	 *             "description"="Het RSIN van de Niet-natuurlijk persoon zijnde de organisatie die dit huwelijk heeft gecreeerd. Dit moet een geldig RSIN zijn van 9 nummers en voldoen aan https://nl.wikipedia.org/wiki/Burgerservicenummer#11-proef"
+	 *         }
+	 *     }
+	 * )
+	 */
+	public $referentie;
+	
+	/**
 	 * Het Huwelijk waartoe deze partner behoord
 	 *
 	 * @var \App\Entity\Organisatie
-	 * @ORM\ManyToOne(targetEntity="\App\Entity\Organisatie", cascade={"persist", "remove"}, inversedBy="documenten")
+	 * @ORM\ManyToOne(targetEntity="\App\Entity\Organisatie", cascade={"persist", "remove"}, inversedBy="orders")
 	 * @ORM\JoinColumn(referencedColumnName="id")
 	 *
 	 */
 	public $bronOrganisatie;
-	
+		
 	/**
-	 * @var string The original name of this file.
+	 * De naam van deze locatie <br /><b>Schema:</b> <a href="https://schema.org/name">https://schema.org/name</a>
 	 *
-	 * @ORM\Column
-	 * @Assert\NotBlank
-	 * @Groups({"read"})
-	 */
+	 * @var string
+	 *
+	 * @ORM\Column(
+	 *     type     = "string",
+	 *     length   = 255
+	 * )
+	 * @Assert\NotNull
+	 * @Assert\Length(
+	 *      min = 5,
+	 *      max = 255,
+	 *      minMessage = "De naam moet ten minste {{ limit }} karakters lang zijn",
+	 *      maxMessage = "De naam kan niet langer dan {{ limit }} karakters zijn"
+	 * )
+	 * @Groups({"read", "write"})
+	 * @ApiProperty(
+	 * 	   iri="http://schema.org/name",
+	 *     attributes={
+	 *         "swagger_context"={
+	 *             "type"="string",
+	 *             "example"="Gratis trouwen"
+	 *         }
+	 *     }
+	 * )
+	 **/
 	public $naam;
 	
+		
 	/**
-	 * @var string The original name of this file.
-	 *
-	 * @ORM\Column
-	 * @Assert\NotBlank
-	 * @Groups({"read"})
-	 */
-	public $orgineleNaam;
-	
-	/**
-	 * @var string The extention of this file in bytes, where 1024 reprecent 1KB and 1048576 1MB
+	 * De besteller van de order
 	 *
 	 * @ORM\Column(
-	 * 		type="integer", 		
-	 * 		nullable=true
+	 *     type     = "string",
+	 *     nullable = true
 	 * )
-	 * @Assert\NotBlank
+	 * @Groups({"read", "write"})
 	 * @ApiProperty(
 	 *     attributes={
-	 *         "swagger_context"={
-	 *             "type"="integer",
-	 *             "example"="1024"
+	 *         "openapi_context"={
+	 *             "title"="Contactpersoon",
+	 *             "type"="url",
+	 *             "example"="https://ref.tst.vng.cloud/zrc/api/v1/zaken/24524f1c-1c14-4801-9535-22007b8d1b65",
+	 *             "required"="true",
+	 *             "maxLength"=255,
+	 *             "format"="uri",
+	 *             "description"="URL-referentie naar de BRP inschrijving van dit persoon"
 	 *         }
 	 *     }
 	 * )
-	 * @Groups({"read"})
+	 * @Gedmo\Versioned
 	 */
-	public $size;
-	
-	/**
-	 * @var string The extention of this file.
-	 *
-	 * @ORM\Column
-	 * @Assert\NotBlank
-	 * @ApiProperty(
-	 * 	   iri="https://www.iana.org/assignments/media-types/media-types.xhtml",
-	 *     attributes={
-	 *         "swagger_context"={
-	 *             "type"="string",
-	 *             "example"="png"
-	 *         }
-	 *     }
-	 * )
-	 * @Groups({"read"})
-	 */
-	public $extention;
-	
-	/**
-	 * @var string The type of the file acording to https://www.iana.org/assignments/media-types/media-types.xhtml.
-	 *
-	 * @ORM\Column(
-	 * 		nullable=true
-	 * )
-	 * @Assert\NotBlank
-	 * @ApiProperty(
-	 * 	   iri="https://www.iana.org/assignments/media-types/media-types.xhtml",
-	 *     attributes={
-	 *         "swagger_context"={
-	 *             "type"="string",
-	 *             "example"="image/png"
-	 *         }
-	 *     }
-	 * )
-	 * @Groups({"read"})
-	 */
-	public $mimeType;
-	
-	/**
-	 * @var string The location of this file.
-	 *
-	 * @ORM\Column(
-	 * 		nullable=true
-	 * )
-	 * @Groups({"read"})
-	 */
-	public $url;
-	
-	/**
-	 * @var string The base64 representation of this file
-	 *
-	 * @ORM\Column(
-	 * 		nullable=true
-	 * )
-	 * @Groups({"read"})
-	 */
-	public $base64;
-	
-	/**
-	 * Datum waarop dit product geregistreerd is
-	 *
-	 * @var string Een "Y-m-d H:i:s" waarde bijv. "2018-12-31 13:33:05" ofwel "Jaar-dag-maan uur:minut:seconde"
-	 * @Gedmo\Timestampable(on="create")
-	 * @Assert\DateTime
-	 * @ORM\Column(
-	 *     type     = "datetime"
-	 * )
-	 * @Groups({"read"})
-	 */
-	public $registratieDatum;
+	public $contactPersoon;
 	
 	/**
 	 * @return string
 	 */
 	public function toString(){
-		return $this->orgineleNaam;
+		return $this->referentie;
 	}
 	
 	/**
@@ -304,17 +274,5 @@ class Document implements StringableInterface
 	public function __toString()
 	{
 		return $this->toString();
-	}
-	
-	/**
-	 * The pre persist function is called when the enity is first saved to the database and allows us to set some aditional first values
-	 *
-	 * @ORM\PrePersist
-	 */
-	public function prePersist()
-	{
-		$this->registratieDatum = new \ Datetime();
-		// We want to add some default stuff here like products, productgroups, paymentproviders, templates, clientGroups, mailinglists and ledgers
-		return $this;
 	}
 }
