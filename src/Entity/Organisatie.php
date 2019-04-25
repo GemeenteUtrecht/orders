@@ -14,7 +14,7 @@ use ActivityLogBundle\Entity\Interfaces\StringableInterface;
 /**
  * Organisatie
  * 
- * Een orginisatie of deel daarvan dat deelneemt aan Common Ground, organisatie objecten worden gebruikt voor het opslaan van configuratie instellingen
+ * Een orginisatie of deeld daarvan dat deelneemt aan Common Grounds, organisatie objecten worden gebruikt voor het opslaan van configuratie instellingen.
  * 
  * @category   	Entity
  *
@@ -32,7 +32,6 @@ use ActivityLogBundle\Entity\Interfaces\StringableInterface;
  *  		"denormalizationContext"={"groups"={"write"}},
  *      	"path"="/organisaties",
  *  		"openapi_context" = {
- * 				"summary" = "Haal een verzameling van organisatie resources op"
  *  		}
  *  	},
  *  	"post"={
@@ -40,7 +39,6 @@ use ActivityLogBundle\Entity\Interfaces\StringableInterface;
  *  		"denormalizationContext"={"groups"={"write"}},
  *      	"path"="/organisaties",
  *  		"openapi_context" = {
- * 				"summary" = "Maak een organisatie resource aan"
  *  		}
  *  	}
  *  },
@@ -50,7 +48,6 @@ use ActivityLogBundle\Entity\Interfaces\StringableInterface;
  *  		"denormalizationContext"={"groups"={"write"}},
  *      	"path"="/organisaties/{id}",
  *  		"openapi_context" = {
- * 				"summary" = "Haal een specifieke organisatie resource op"
  *  		}
  *  	},
  *     "put"={
@@ -58,7 +55,6 @@ use ActivityLogBundle\Entity\Interfaces\StringableInterface;
  *  		"denormalizationContext"={"groups"={"write"}},
  *      	"path"="/organisaties/{id}",
  *  		"openapi_context" = {
- * 				"summary" = "Vervang een specifieke organisatie resource"
  *  		}
  *  	},
  *     "delete"={
@@ -66,7 +62,6 @@ use ActivityLogBundle\Entity\Interfaces\StringableInterface;
  *  		"denormalizationContext"={"groups"={"write"}},
  *      	"path"="/organisaties/{id}",
  *  		"openapi_context" = {
- * 				"summary" = "Verwijder een specifieke organisatie resource"
  *  		}
  *  	},
  *     "log"={
@@ -105,7 +100,7 @@ use ActivityLogBundle\Entity\Interfaces\StringableInterface;
  *     		"normalization_context"={"groups"={"read"}},
  *     		"denormalization_context"={"groups"={"write"}},
  *         	"openapi_context" = {
- *         		"summary" = "Versie terugdraaien",
+ *         		"summary" = "Versie terugdraaid",
  *         		"description" = "Herstel een eerdere versie van dit object. Dit is een destructieve actie die niet ongedaan kan worden gemaakt",
  *          	"consumes" = {
  *              	"application/json",
@@ -116,7 +111,7 @@ use ActivityLogBundle\Entity\Interfaces\StringableInterface;
  *            	},
  *             	"responses" = {
  *         			"202" = {
- *         				"description" = "Terug gedraaid naar eerdere versie"
+ *         				"description" = "Teruggedraaid naar eerdere versie"
  *         			},	
  *         			"400" = {
  *         				"description" = "Ongeldige aanvraag"
@@ -202,8 +197,8 @@ class Organisatie implements StringableInterface
 	 *             "type"="string",
 	 *             "example"="12345678",
 	 *             "required"="true",
-	 *             "minLength"=8,
-	 *             "maxLength"=9,
+	 *             "maxLength"=8,
+	 *             "minLength"=9,
 	 *             "description"="Het KVK nummer van deze organisatie"
 	 *         }
 	 *     }
@@ -240,7 +235,8 @@ class Organisatie implements StringableInterface
 	 *     }
 	 * )
 	 */
-	public $btw;	
+	public $btw;
+	
 	
 	/**
 	 * Het EORI (Europese Douane NR) van deze organisatie, zie ook https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/douane_voor_bedrijven/naslagwerken_en_overige_informatie/eori_nummer/
@@ -264,8 +260,8 @@ class Organisatie implements StringableInterface
 	 *             "type"="string",
 	 *             "example"="123456789",
 	 *             "required"="true",
-	 *             "minLength"=5,
 	 *             "maxLength"=14,
+	 *             "minLength"=5,
 	 *             "description"="Het EORI (Europese Douane NR) van deze organisatie, zie ook https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/douane_voor_bedrijven/naslagwerken_en_overige_informatie/eori_nummer/"
 	 *         }
 	 *     }
@@ -286,7 +282,7 @@ class Organisatie implements StringableInterface
 	 * @Assert\Length(
 	 *      min = 5,
 	 *      max = 255,
-	 *      minMessage = "De naam moet ten minste {{ limit }} karakters lang zijn",
+	 *      minMessage = "De naam moet tenminste {{ limit }} karakters lang zijn",
 	 *      maxMessage = "De naam kan niet langer dan {{ limit }} karakters zijn"
 	 * )
 	 * @Groups({"read", "write"})
@@ -352,7 +348,7 @@ class Organisatie implements StringableInterface
 	 *      maxMessage = "Het emailadres mag maximaal {{ limit }} tekens lang zijn"
 	 * )
 	 * @Assert\Email(
-     *     message = "Het emailadres '{{ value }}' is geen geldig emailadres.",
+     *     message = "Het email addres '{{ value }}' is geen geldig emailadres.",
      *     checkMX = true
      * )
 	 * @Groups({"read", "write"})
@@ -371,7 +367,7 @@ class Organisatie implements StringableInterface
 	public $emailadres;
 	
 	/**
-	 * Het telefoon nummer van deze organisatie <br /><b>Schema:</b> <a href="https://schema.org/telephone">https://schema.org/telephone</a>
+	 * Het telefoonnummer van deze organisatie <br /><b>Schema:</b> <a href="https://schema.org/telephone">https://schema.org/telephone</a>
 	 *
 	 * @var string
 	 *

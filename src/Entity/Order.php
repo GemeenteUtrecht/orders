@@ -23,7 +23,7 @@ use ActivityLogBundle\Entity\Interfaces\StringableInterface;
  * @version    	1.0
  *
  * @link   		http//:www.conduction.nl
- * @package		Common Ground
+ * @package		Commen Ground
  * @subpackage  Order
  * 
  *  @ApiResource( 
@@ -33,7 +33,6 @@ use ActivityLogBundle\Entity\Interfaces\StringableInterface;
  *  		"denormalizationContext"={"groups"={"write"}},
  *      	"path"="/orders",
  *  		"openapi_context" = {
- * 				"summary" = "Haalt een verzameling van orders op"
  *  		}
  *  	},
  *  	"post"={
@@ -41,7 +40,6 @@ use ActivityLogBundle\Entity\Interfaces\StringableInterface;
  *  		"denormalizationContext"={"groups"={"write"}},
  *      	"path"="/orders",
  *  		"openapi_context" = {
- * 					"summary" = "Maak een order aan"
  *  		}
  *  	}
  *  },
@@ -51,7 +49,6 @@ use ActivityLogBundle\Entity\Interfaces\StringableInterface;
  *  		"denormalizationContext"={"groups"={"write"}},
  *      	"path"="/orders/{id}",
  *  		"openapi_context" = {
- * 				"summary" = "Haal een specifieke orders op"
  *  		}
  *  	},
  *     "put"={
@@ -59,7 +56,6 @@ use ActivityLogBundle\Entity\Interfaces\StringableInterface;
  *  		"denormalizationContext"={"groups"={"write"}},
  *      	"path"="/orders/{id}",
  *  		"openapi_context" = {
- * 				"summary" = "Vervang een specifieke order"
  *  		}
  *  	},
  *     "delete"={
@@ -67,7 +63,6 @@ use ActivityLogBundle\Entity\Interfaces\StringableInterface;
  *  		"denormalizationContext"={"groups"={"write"}},
  *      	"path"="/orders/{id}",
  *  		"openapi_context" = {
- * 				"summary" = "Verwijder een specifieke order"
  *  		}
  *  	},
  *     "log"={
@@ -94,7 +89,7 @@ use ActivityLogBundle\Entity\Interfaces\StringableInterface;
  *         				"description" = "Ongeldige aanvraag"
  *         			},
  *         			"404" = {
- *         				"description" = "Order niet gevonden"
+ *         				"description" = "Huwelijk of aanvraag niet gevonden"
  *         			}
  *            	}            
  *         }
@@ -123,7 +118,7 @@ use ActivityLogBundle\Entity\Interfaces\StringableInterface;
  *         				"description" = "Ongeldige aanvraag"
  *         			},
  *         			"404" = {
- *         				"description" = "Order niet gevonden"
+ *         				"description" = "Huwelijk of aanvraag niet gevonden"
  *         			}
  *            	}            
  *         }
@@ -160,7 +155,7 @@ class Order implements StringableInterface
 	 * )
 	 * @Assert\Length(
 	 *      max = 40,
-	 *      maxMessage = "Het RSIN kan niet langer dan {{ limit }} tekens zijn"
+	 *      maxMessage = "Het RSIN kan niet langer dan {{ limit }} karakters zijn"
 	 * )
 	 * @Groups({"read", "write"})
 	 * @ApiProperty(
@@ -194,7 +189,7 @@ class Order implements StringableInterface
 	 *             "required"="true",
 	 *             "maxLength"=14,
 	 *             "minLength"=1,
-	 *             "description"="Het RSIN van de Niet-natuurlijk persoon zijnde de organisatie die deze order heeft gecreeerd. Dit moet een geldig RSIN zijn van 9 nummers en voldoen aan https://nl.wikipedia.org/wiki/Burgerservicenummer#11-proef"
+	 *             "description"="Het RSIN van de Niet-natuurlijk persoon zijnde de organisatie die dit huwelijk heeft gecreeerd. Dit moet een geldig RSIN zijn van 9 nummers en voldoen aan https://nl.wikipedia.org/wiki/Burgerservicenummer#11-proef"
 	 *         }
 	 *     }
 	 * )
@@ -202,7 +197,7 @@ class Order implements StringableInterface
 	public $referentie;
 	
 	/**
-	 * De organisatie waartoe deze order behoord
+	 * Het Huwelijk waartoe deze partner behoord
 	 *
 	 * @var \App\Entity\Organisatie
 	 * @ORM\ManyToOne(targetEntity="\App\Entity\Organisatie", cascade={"persist", "remove"}, inversedBy="orders")
@@ -212,7 +207,7 @@ class Order implements StringableInterface
 	public $bronOrganisatie;
 		
 	/**
-	 * De naam van deze order <br /><b>Schema:</b> <a href="https://schema.org/name">https://schema.org/name</a>
+	 * De naam van deze locatie <br /><b>Schema:</b> <a href="https://schema.org/name">https://schema.org/name</a>
 	 *
 	 * @var string
 	 *
@@ -224,8 +219,8 @@ class Order implements StringableInterface
 	 * @Assert\Length(
 	 *      min = 5,
 	 *      max = 255,
-	 *      minMessage = "De naam moet ten minste {{ limit }} tekens lang zijn",
-	 *      maxMessage = "De naam kan niet langer dan {{ limit }} tekens zijn"
+	 *      minMessage = "De naam moet ten minste {{ limit }} karakters lang zijn",
+	 *      maxMessage = "De naam kan niet langer dan {{ limit }} karakters zijn"
 	 * )
 	 * @Groups({"read", "write"})
 	 * @ApiProperty(
@@ -274,7 +269,7 @@ class Order implements StringableInterface
 	}
 	
 	/**
-	 * Vanuit rendering perspectief (voor bijvoorbeeld logging of berichten) is het belangrijk dat we een entiteit altijd naar string kunnen omzetten
+	 * Vanuit rendering perspectief (voor bijvoorbeeld loging of berichten) is het belangrijk dat we een entiteit altijd naar string kunnen omzetten
 	 */
 	public function __toString()
 	{
