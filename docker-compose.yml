@@ -14,7 +14,7 @@ version: '3.4'
 
 services:
   # The database
-  db:
+  mysql-component:
     # In production, you may want to use a managed database service
     image: mysql:${MYSQL_VERSION} 
     environment:
@@ -23,35 +23,35 @@ services:
       - MYSQL_USER=${MYSQL_USER} 
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
     volumes:
-      - orders-mysql-data:/var/lib/mysql:rw
+      - resources-mysql-data:/var/lib/mysql:rw
     ports:
       - "3306:3306"
       
   # The PHP container
-  orders_component:
+  orders-component:
     image: ${CONTAINER_REGISTRY_BASE}/${CONTAINER_PROJECT_NAME}-component:latest
     build:
       context: ./ 
       dockerfile: docker/php/Dockerfile
       cache_from:
-        - ${CONTAINER_REGISTRY_BASE}/${CONTAINER_PROJECT_NAME}_php
-        - ${CONTAINER_REGISTRY_BASE}/${CONTAINER_PROJECT_NAME}_api  
+        - ${CONTAINER_REGISTRY_BASE}/${CONTAINER_PROJECT_NAME}-component
+        - ${CONTAINER_REGISTRY_BASE}/${CONTAINER_PROJECT_NAME}-nginx  
     depends_on:
-      - db
+      - mysql-component
     volumes:
       - ./:/srv/api:rw,cached
       
   # The NGINX container
-  orders_api:
+  orders-api:
     image: ${CONTAINER_REGISTRY_BASE}/${CONTAINER_PROJECT_NAME}-nginx:latest
     build: 
       context: ./ 
       dockerfile: docker/nginx/Dockerfile
       cache_from:
-        - ${CONTAINER_REGISTRY_BASE}/${CONTAINER_PROJECT_NAME}_php
-        - ${CONTAINER_REGISTRY_BASE}/${CONTAINER_PROJECT_NAME}_api  
+        - ${CONTAINER_REGISTRY_BASE}/${CONTAINER_PROJECT_NAME}-component
+        - ${CONTAINER_REGISTRY_BASE}/${CONTAINER_PROJECT_NAME}-nginx  
     depends_on:
-      - orders_component
+      - orders-component
     volumes:
       - ./public:/srv/api/public:ro
     ports:
@@ -59,4 +59,4 @@ services:
 
 ## We use volumes to achieve db (semi) persistancy for developtment purposes, but do not use this in production! volumes are by nature not persistent       
 volumes:
-  orders-mysql-data: {}
+  resources-mysql-data: {}
