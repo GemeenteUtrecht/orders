@@ -29,7 +29,7 @@ Om het voor andere partijen zo makkelijk mogenlijk te maken dit component bieden
 
 ## Licentie
 
-Copyright © Gemeente Utrecht 2019
+Copyright ï¿½ Gemeente Utrecht 2019
 
 Gelicenseerd onder [EUPL](LICENCE.md)
 
