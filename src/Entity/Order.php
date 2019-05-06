@@ -168,30 +168,6 @@ class Order implements StringableInterface
 	public $identificatie;
 	
 	/**
-	 * Het RSIN van de Niet-natuurlijk persoon zijnde de organisatie die dit Document heeft gecreeerd. Dit moet een geldig RSIN zijn van 9 nummers en voldoen aan https://nl.wikipedia.org/wiki/Burgerservicenummer#11-proef
-	 *
-	 * @var string
-	 * @ORM\Column(
-	 *     type     = "string"
-	 * )
-	 * @Groups({"read", "write"})
-	 * @ApiProperty(
-	 *     attributes={
-	 *         "openapi_context"={
-	 *             "title"="Organisatie",
-	 *             "type"="string",
-	 *             "example"="123456789",
-	 *             "required"="true",
-	 *             "maxLength"=14,
-	 *             "minLength"=1,
-	 *             "description"="Het RSIN van de Niet-natuurlijk persoon zijnde de organisatie die deze order heeft gecreeerd. Dit moet een geldig RSIN zijn van 9 nummers en voldoen aan https://nl.wikipedia.org/wiki/Burgerservicenummer#11-proef"
-	 *         }
-	 *     }
-	 * )
-	 */
-	public $referentie;
-	
-	/**
 	 * Het RSIN van de organisatie waartoe deze Order behoord. Dit moet een geldig RSIN zijn van 9 nummers en voldoen aan https://nl.wikipedia.org/wiki/Burgerservicenummer#11-proef. <br> Het RSIN word bepaald aan de hand van de gauthenticeerde applicatie en kan niet worden overschreven
 	 *
 	 * @var integer
@@ -327,5 +303,9 @@ class Order implements StringableInterface
 	public function __toString()
 	{
 		return $this->toString();
+	}
+	public function getUrl()
+	{
+		return 'http://orders.demo.zaakonline.nl/orders/'.$this->id;
 	}
 }
