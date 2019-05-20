@@ -2,7 +2,7 @@ openapi: 3.0.2
 info:
   description: |
     # Welkom innovator! 
-    Fijn dat je de tijd en moeite hebt genomen om je te verdiepen in dit component. Het "order" component is ontwikkeld voor de gemeente Utrecht en heeft als doel het verwerken van bestellingen. Dit component gaat vaak hand in hand met de componenten betalen, producten en diensten maar dit is niet altijd noodzakelijk. 
+    Fijn dat je de tijd en moeite hebt genomen om je te verdiepen in dit component. Het "order" component is ontwikkeld voor de gemeente Utrecht en heeft als doel het verwerken van bestellingen. Dit component gaat vaak hand in hand met de componenten betalen, producten en diensten, maar dit is niet altijd noodzakelijk. 
     
     # Ondersteuning
     Word lid van het slackkanaal [https://zaakonline.slack.com](https://zaakonline.slack.com) voor ondersteuning door het ontwikkel team. En krijg regelmatig updates over de ontwikkelingen op het gebied van de zaakonline componenten.
@@ -53,7 +53,7 @@ info:
     
     Let er bij het meegeven van JWT tokens op dat deze moet worden voorafgegaan door een Bearer en een spatie, onder de header Authorization. De volledig naam wordt daarmee: 'Authorization: Bearer [TOKEN]'.
     
-  version: 0.0.1
+  version: '0.0.20 Alpha'
   title: 'Orders API'
   termsOfService: 'http://www.zaakonline.nl/terms/'
   contact:
@@ -70,7 +70,7 @@ paths:
   '/applicatie/{id}':
     get:
       summary: 'Haal op'
-      description: 'Haal een Applicatie op'
+      description: 'Haal een Applicatie op.'
       tags:
         - Applicatie
       operationId: getApplicatieItem
@@ -98,7 +98,7 @@ paths:
           description: 'Resource not found'
     put:
       summary: 'Werk bij'
-      description: 'Werk een Applicatie bij'
+      description: 'Werk een Applicatie bij.'
       tags:
         - Applicatie
       operationId: putApplicatieItem
@@ -141,7 +141,7 @@ paths:
   '/applicatie/{id}/log':
     get:
       summary: Logboek
-      description: 'Bekijk de wijzigingen op dit Applicatie object'
+      description: 'Bekijk de wijzigingen op dit Applicatie object.'
       tags:
         - Applicatie
       operationId: logApplicatieItem
@@ -347,7 +347,7 @@ paths:
   /login_check:
     post:
       summary: 'Token halen'
-      description: 'Inloggen als Applicatie en JWT Token ophalen'
+      description: 'Inloggen als Applicatie en JWT Token ophalen.'
       tags:
         - Applicatie
       operationId: loginApplicatieCollection
@@ -715,7 +715,7 @@ paths:
   '/orders/{id}/log':
     get:
       summary: 'Logboek inzien'
-      description: 'Geeft een array van eerdere versies en wijzigingen van dit object'
+      description: 'Geeft een array van eerdere versies en wijzigingen van dit object.'
       consumes:
         - application/json
         - text/html
@@ -746,8 +746,8 @@ paths:
           description: 'Resource not found'
   '/orders/{id}/revert/{version}':
     post:
-      summary: 'Versie terugdraaid'
-      description: 'Herstel een eerdere versie van dit object. Dit is een destructieve actie die niet ongedaan kan worden gemaakt'
+      summary: 'Versie herstellen'
+      description: 'Herstel een eerdere versie van dit object. Dit is een destructieve actie die niet ongedaan kan worden gemaakt.'
       consumes:
         - application/json
         - text/html
@@ -755,7 +755,7 @@ paths:
         - application/json
       responses:
         202:
-          description: 'Terug gedraaid naar eerdere versie'
+          description: 'Teruggedraaid naar eerdere versie'
         400:
           description: 'Ongeldige aanvraag'
         404:
@@ -778,7 +778,7 @@ paths:
   /registreer:
     post:
       summary: Registreren
-      description: 'Registreer een nieuwe Applicatie voor dit component'
+      description: 'Registreer een nieuwe Applicatie voor dit component.'
       tags:
         - Applicatie
       operationId: registerApplicatieCollection
@@ -851,10 +851,10 @@ components:
           minLength: 8
           description: 'Het RSIN van de organisatie waartoe deze Applicatie behoort. Dit moet een geldig RSIN zijn van 9 nummers en voldoen aan https://nl.wikipedia.org/wiki/Burgerservicenummer#11-proef.'
         isActief:
-          description: 'Wordt gebruikt om aan te geven of deze applicatie actief is (en mag inloggen) of dat deze slechts wordt gebruikt voor archief doeleinden'
+          description: 'Wordt gebruikt om aan te geven of deze applicatie actief is (en mag inloggen) of dat deze slechts wordt gebruikt voor archief doeleinden.'
           type: boolean
         registratiedatum:
-          description: 'Het tijdstip waarop deze Applicatie is aangemaakt'
+          description: 'Het tijdstip waarop deze Applicatie is aangemaakt.'
           type: string
           format: date-time
         wijzigingsdatum:
@@ -917,10 +917,10 @@ components:
           minLength: 8
           description: 'Het RSIN van de organisatie waartoe deze Applicatie behoort. Dit moet een geldig RSIN zijn van 9 nummers en voldoen aan https://nl.wikipedia.org/wiki/Burgerservicenummer#11-proef.'
         isActief:
-          description: 'Wordt gebruikt om aan te geven of deze applicatie actief is (en mag inloggen) of dat deze slechts wordt gebruikt voor archief doeleinden'
+          description: 'Wordt gebruikt om aan te geven of deze applicatie actief is (en mag inloggen) of dat deze slechts wordt gebruikt voor archief doeleinden.'
           type: boolean
         registratiedatum:
-          description: 'Het tijdstip waarop deze Applicatie is aangemaakt'
+          description: 'Het tijdstip waarop deze Applicatie is aangemaakt.'
           type: string
           format: date-time
         wijzigingsdatum:
@@ -974,12 +974,12 @@ components:
       description: Order
       properties:
         id:
-          description: 'Het identificatie nummer van deze Order <br /><b>Schema:</b> <a href="https://schema.org/identifier">https://schema.org/identifier</a>'
+          description: 'Het identificatienummer van deze Order. <br /><b>Schema:</b> <a href="https://schema.org/identifier">https://schema.org/identifier</a>'
           type: integer
         identificatie:
           type: string
           example: 6a36c2c4-213e-4348-a467-dfa3a30f64aa
-          description: 'De unieke identificatie van dit object binnen de organisatie die dit object heeft gecreeerd. <br /><b>Schema:</b> <a href="https://schema.org/identifier">https://schema.org/identifier</a>'
+          description: 'De unieke identificatie van dit object binnen de organisatie die dit object heeft gecreëerd. <br /><b>Schema:</b> <a href="https://schema.org/identifier">https://schema.org/identifier</a>'
           maxLength: 40
         bronOrganisatie:
           title: bronOrganisatie
@@ -988,12 +988,12 @@ components:
           required: 'true'
           maxLength: 9
           minLength: 8
-          description: 'Het RSIN van de organisatie waartoe deze Order behoord. Dit moet een geldig RSIN zijn van 9 nummers en voldoen aan https://nl.wikipedia.org/wiki/Burgerservicenummer#11-proef. <br> Het RSIN word bepaald aan de hand van de gauthenticeerde applicatie en kan niet worden overschreven'
+          description: 'Het RSIN van de organisatie waartoe deze Order behoort. Dit moet een geldig RSIN zijn van 9 nummers en voldoen aan https://nl.wikipedia.org/wiki/Burgerservicenummer#11-proef. <br> Het RSIN wordt bepaald aan de hand van de geauthenticeerde applicatie en kan niet worden overschreven'
         naam:
-          description: 'De naam van deze order <br /><b>Schema:</b> <a href="https://schema.org/name">https://schema.org/name</a>'
+          description: 'De naam van deze order. <br /><b>Schema:</b> <a href="https://schema.org/name">https://schema.org/name</a>'
           type: string
         registratiedatum:
-          description: 'Het tijdstip waarop dit order object is aangemaakt'
+          description: 'Het tijdstip waarop dit order object is aangemaakt.'
           type: string
           format: date-time
         wijzigingsdatum:
@@ -1007,7 +1007,7 @@ components:
           required: 'true'
           maxLength: 255
           format: uri
-          description: 'Het contact persoon voor deze order'
+          description: 'De contactpersoon voor deze order.'
         eigenaar:
           description: 'Met eigenaar wordt bijgehouden welke  applicatie verantwoordelijk is voor het object, en daarvoor de rechten beheerd en uitgeeft. In die zin moet de eigenaar dan ook worden gezien in de trant van autorisatie en configuratie in plaats van als onderdeel van het datamodel.'
           type: string
@@ -1020,12 +1020,12 @@ components:
       description: Order
       properties:
         id:
-          description: 'Het identificatie nummer van deze Order <br /><b>Schema:</b> <a href="https://schema.org/identifier">https://schema.org/identifier</a>'
+          description: 'Het identificatienummer van deze Order. <br /><b>Schema:</b> <a href="https://schema.org/identifier">https://schema.org/identifier</a>'
           type: integer
         identificatie:
           type: string
           example: 6a36c2c4-213e-4348-a467-dfa3a30f64aa
-          description: 'De unieke identificatie van dit object binnen de organisatie die dit object heeft gecreeerd. <br /><b>Schema:</b> <a href="https://schema.org/identifier">https://schema.org/identifier</a>'
+          description: 'De unieke identificatie van dit object binnen de organisatie die dit object heeft gecreëerd. <br /><b>Schema:</b> <a href="https://schema.org/identifier">https://schema.org/identifier</a>'
           maxLength: 40
         bronOrganisatie:
           title: bronOrganisatie
@@ -1034,12 +1034,12 @@ components:
           required: 'true'
           maxLength: 9
           minLength: 8
-          description: 'Het RSIN van de organisatie waartoe deze Order behoord. Dit moet een geldig RSIN zijn van 9 nummers en voldoen aan https://nl.wikipedia.org/wiki/Burgerservicenummer#11-proef. <br> Het RSIN word bepaald aan de hand van de gauthenticeerde applicatie en kan niet worden overschreven'
+          description: 'Het RSIN van de organisatie waartoe deze Order behoort. Dit moet een geldig RSIN zijn van 9 nummers en voldoen aan https://nl.wikipedia.org/wiki/Burgerservicenummer#11-proef. <br> Het RSIN wordt bepaald aan de hand van de geauthenticeerde applicatie en kan niet worden overschreven'
         naam:
-          description: 'De naam van deze order <br /><b>Schema:</b> <a href="https://schema.org/name">https://schema.org/name</a>'
+          description: 'De naam van deze order. <br /><b>Schema:</b> <a href="https://schema.org/name">https://schema.org/name</a>'
           type: string
         registratiedatum:
-          description: 'Het tijdstip waarop dit order object is aangemaakt'
+          description: 'Het tijdstip waarop dit order object is aangemaakt.'
           type: string
           format: date-time
         wijzigingsdatum:
@@ -1053,7 +1053,7 @@ components:
           required: 'true'
           maxLength: 255
           format: uri
-          description: 'Het contact persoon voor deze order'
+          description: 'De contactpersoon voor deze order.'
         eigenaar:
           description: 'Met eigenaar wordt bijgehouden welke  applicatie verantwoordelijk is voor het object, en daarvoor de rechten beheerd en uitgeeft. In die zin moet de eigenaar dan ook worden gezien in de trant van autorisatie en configuratie in plaats van als onderdeel van het datamodel.'
           type: string
@@ -1064,15 +1064,15 @@ components:
       description: Order
       properties:
         id:
-          description: 'Het identificatie nummer van deze Order <br /><b>Schema:</b> <a href="https://schema.org/identifier">https://schema.org/identifier</a>'
+          description: 'Het identificatienummer van deze Order. <br /><b>Schema:</b> <a href="https://schema.org/identifier">https://schema.org/identifier</a>'
           type: integer
         identificatie:
           type: string
           example: 6a36c2c4-213e-4348-a467-dfa3a30f64aa
-          description: 'De unieke identificatie van dit object binnen de organisatie die dit object heeft gecreeerd. <br /><b>Schema:</b> <a href="https://schema.org/identifier">https://schema.org/identifier</a>'
+          description: 'De unieke identificatie van dit object binnen de organisatie die dit object heeft gecreëerd. <br /><b>Schema:</b> <a href="https://schema.org/identifier">https://schema.org/identifier</a>'
           maxLength: 40
         naam:
-          description: 'De naam van deze order <br /><b>Schema:</b> <a href="https://schema.org/name">https://schema.org/name</a>'
+          description: 'De naam van deze order. <br /><b>Schema:</b> <a href="https://schema.org/name">https://schema.org/name</a>'
           type: string
         contactPersoon:
           title: Contactpersoon
@@ -1081,7 +1081,7 @@ components:
           required: 'true'
           maxLength: 255
           format: uri
-          description: 'Het contact persoon voor deze order'
+          description: 'De contactpersoon voor deze order.'
       required:
         - naam
     OrderRegel:
@@ -1115,10 +1115,10 @@ externalDocs:
 tags:
   -
     name: Order
-    description: 'Het order component heeft als doel het verwerken van bestellingen'
+    description: 'Het order component heeft als doel het verwerken van bestellingen.'
   -
     name: Applicatie
-    description: 'Een software applicatie binnen een organisatie die gebruik maakt van een component voor het creëren, ophalen, bijwerken of verwijderen van gegevens. Applicaties kunnen worden geregistreerd om namens een organisatie te handelen op een component. In deze zin zijn applicaties dan ook onderdeel van het beheerproces, infrastructuur en configuratie van een component in plaats van het datamodel dat door het component wordt geleverd.'
+    description: 'Een software applicatie binnen een organisatie, die gebruik maakt van een component voor het creëren, ophalen, bijwerken of verwijderen van gegevens. Applicaties kunnen worden geregistreerd om namens een organisatie te handelen op een component. In deze zin zijn applicaties dan ook onderdeel van het beheerproces, infrastructuur en configuratie van een component in plaats van het datamodel dat door het component wordt geleverd.'
 x-tagGroups:
   -
     name: Orders

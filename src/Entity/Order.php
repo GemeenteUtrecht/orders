@@ -82,7 +82,7 @@ use ActivityLogBundle\Entity\Interfaces\StringableInterface;
  *     		"denormalization_context"={"groups"={"write"}},
  *         	"openapi_context" = {
  *         		"summary" = "Logboek inzien",
- *         		"description" = "Geeft een array van eerdere versies en wijzigingen van dit object",
+ *         		"description" = "Geeft een array van eerdere versies en wijzigingen van dit object.",
  *          	"consumes" = {
  *              	"application/json",
  *               	"text/html",
@@ -96,8 +96,8 @@ use ActivityLogBundle\Entity\Interfaces\StringableInterface;
  *     		"normalization_context"={"groups"={"read"}},
  *     		"denormalization_context"={"groups"={"write"}},
  *         	"openapi_context" = {
- *         		"summary" = "Versie terugdraaid",
- *         		"description" = "Herstel een eerdere versie van dit object. Dit is een destructieve actie die niet ongedaan kan worden gemaakt",
+ *         		"summary" = "Versie herstellen",
+ *         		"description" = "Herstel een eerdere versie van dit object. Dit is een destructieve actie die niet ongedaan kan worden gemaakt.",
  *          	"consumes" = {
  *              	"application/json",
  *               	"text/html",
@@ -107,7 +107,7 @@ use ActivityLogBundle\Entity\Interfaces\StringableInterface;
  *            	},
  *             	"responses" = {
  *         			"202" = {
- *         				"description" = "Terug gedraaid naar eerdere versie"
+ *         				"description" = "Teruggedraaid naar eerdere versie"
  *         			},	
  *         			"400" = {
  *         				"description" = "Ongeldige aanvraag"
@@ -127,7 +127,7 @@ use ActivityLogBundle\Entity\Interfaces\StringableInterface;
 class Order implements StringableInterface
 {
 	/**
-	 * Het identificatie nummer van deze Order <br /><b>Schema:</b> <a href="https://schema.org/identifier">https://schema.org/identifier</a>
+	 * Het identificatienummer van deze Order. <br /><b>Schema:</b> <a href="https://schema.org/identifier">https://schema.org/identifier</a>
 	 * 
 	 * @var int|null
 	 *
@@ -140,7 +140,7 @@ class Order implements StringableInterface
 	public $id;
 	
 	/**
-	 * De unieke identificatie van dit object binnen de organisatie die dit object heeft gecreeerd. <br /><b>Schema:</b> <a href="https://schema.org/identifier">https://schema.org/identifier</a>
+	 * De unieke identificatie van dit object binnen de organisatie die dit object heeft gecreëerd. <br /><b>Schema:</b> <a href="https://schema.org/identifier">https://schema.org/identifier</a>
 	 *
 	 * @var string
 	 * @ORM\Column(
@@ -158,7 +158,7 @@ class Order implements StringableInterface
 	 *         "openapi_context"={
 	 *             "type"="string",
 	 *             "example"="6a36c2c4-213e-4348-a467-dfa3a30f64aa",
-	 *             "description"="De unieke identificatie van dit object de organisatie die dit object heeft gecreeerd.",
+	 *             "description"="De unieke identificatie van dit object de organisatie die dit object heeft gecreëerd.",
 	 *             "maxLength"=40
 	 *         }
 	 *     }
@@ -168,7 +168,7 @@ class Order implements StringableInterface
 	public $identificatie;
 	
 	/**
-	 * Het RSIN van de organisatie waartoe deze Order behoord. Dit moet een geldig RSIN zijn van 9 nummers en voldoen aan https://nl.wikipedia.org/wiki/Burgerservicenummer#11-proef. <br> Het RSIN word bepaald aan de hand van de gauthenticeerde applicatie en kan niet worden overschreven
+	 * Het RSIN van de organisatie waartoe deze Order behoort. Dit moet een geldig RSIN zijn van 9 nummers en voldoen aan https://nl.wikipedia.org/wiki/Burgerservicenummer#11-proef. <br> Het RSIN wordt bepaald aan de hand van de geauthenticeerde applicatie en kan niet worden overschreven
 	 *
 	 * @var integer
 	 * @ORM\Column(
@@ -200,7 +200,7 @@ class Order implements StringableInterface
 	public $bronOrganisatie;	
 		
 	/**
-	 * De naam van deze order <br /><b>Schema:</b> <a href="https://schema.org/name">https://schema.org/name</a>
+	 * De naam van deze order. <br /><b>Schema:</b> <a href="https://schema.org/name">https://schema.org/name</a>
 	 *
 	 * @var string
 	 *
@@ -229,7 +229,7 @@ class Order implements StringableInterface
 	public $naam;
 	
 	/**
-	 * Het tijdstip waarop dit order object is aangemaakt
+	 * Het tijdstip waarop dit order object is aangemaakt.
 	 *
 	 * @var string Een "Y-m-d H:i:s" waarde bijvoorbeeld "2018-12-31 13:33:05" ofwel "Jaar-dag-maand uur:minuut:seconde"
 	 * @Gedmo\Timestampable(on="create")
@@ -256,7 +256,7 @@ class Order implements StringableInterface
 	public $wijzigingsdatum;
 	
 	/**
-	 * Het contact persoon voor deze order
+	 * De contactpersoon voor deze order.
 	 *
 	 * @ORM\Column(
 	 *     type     = "string",
